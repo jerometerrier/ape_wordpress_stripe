@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "ape-compta"
+version = "0.1.0"
+description = "Automatiser la compatabilité avec WooCommerce et Stripe"
+authors = ["Jérôme TERRIER"]
+readme = "README.md"
+packages = [{include = "ape_compta"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+WooCommerce = "^3.0.0"
+stripe = "^4.2.0"
+pandas = "^1.5.1"
+
+[tool.poetry.group.dev.dependencies]
+ipykernel
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
