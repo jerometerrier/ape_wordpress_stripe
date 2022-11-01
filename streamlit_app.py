@@ -138,6 +138,12 @@ if clicked:
 	df_stripe = get_stripe_data(start_date_timestamp, end_date_timestamp,PAUSE)
 	df_woocommerce = get_woocommerce_data(start_date_isoformat, end_date_isoformat)
 	df_merged = df_woocommerce.merge(df_stripe, on='id', how='outer')
+	df_merged = df_merged.explode('line_items',ignore_index=True)
+	df_merged[['id', 'name', 'product_id', 'variation_id', 'quantity', 'tax_class',
+       'subtotal', 'subtotal_tax', 'total', 'total_tax', 'taxes', 'meta_data',
+       'sku', 'price', 'image', 'parent_name']] = pd.DataFrame(df_merged['line_items'].to_list(), index= df_merged.index)
+	df_merged.drop(['meta_data',
+	'sku', 'price', 'image', 'parent_name'], axis = 1, inplace=True)
 	export_df = df_merged.to_csv(index=False).encode('utf-8')
 	ready_to_download = True
 
